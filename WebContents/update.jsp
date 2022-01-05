@@ -3,37 +3,37 @@
 <%@ page import="com.javaex.vo.PersonVo" %>
 <%@ page import="com.javaex.dao.PhoneDao" %>
 <%@ page import="java.util.List" %>
-
     
 <%
-	//PhoneDao를 메모리에 올린다
+	
+	//phonedao쓸거고
 	PhoneDao phoneDao = new PhoneDao();
 	
-
-	/////저장관련
-	//파라미터값 가져오기
+	//파라미터 받고
 	String name = request.getParameter("name");
 	String hp = request.getParameter("hp");
 	String company = request.getParameter("company");
+	String str = request.getParameter ("id");
+	int id = Integer.parseInt(str);
 	
-	//전송된 값을 vo객체로 전환
-	PersonVo personVo = new PersonVo(name, hp, company);
+	//personVo도 쓸거임
+	PersonVo upvo = new PersonVo(id, name, hp, company);
 	
-	//저장
-	phoneDao.personInsert(personVo);
+	//수정
+	phoneDao.personUpdate(upvo);
 	
 	
-	////////리스트가져오기
+	//리스트가져오기
 	//전체리스트 가져오기
-	//List<PersonVo> personList = phoneDao.getPersonList();
+	List<PersonVo> personList = phoneDao.getPersonList();
 	
-	//html로 본문에 보여줘야지!
-	//http://localhost:8088/phonebook1/list.jsp 엔터치는 기능
+	
+	//리다이렉션
 	response.sendRedirect("./list.jsp");
-	
-%>
 
 
+
+%>  
 <!DOCTYPE html>
 <html>
 <head>
@@ -41,8 +41,6 @@
 <title>Insert title here</title>
 </head>
 <body>
-
-
 
 </body>
 </html>
