@@ -52,7 +52,7 @@
 			</td>
 			<td>
 				<a href="./delete.jsp?id=<%=personList.get(i).getPersonId()%>"
-				 name="id">[삭제]</a>
+				>[삭제]</a>
 			</td>
 		</tr>
 		<br>
