@@ -30,7 +30,7 @@
 	<table border = "1">
 		<tr>
 			<td>이름(name)</td>
-			<td><%=personList.get(i).getName() %></td>
+			<td><%=personList.get(i).getName()%></td>
 		</tr>
 		<tr>
 			<td>핸드폰(hp)</td>
@@ -41,12 +41,25 @@
 			<td>회사(company)</td>
 			<td><%=personList.get(i).getCompany() %></td>
 		</tr>
+		<tr>
+			<td>코드(id)</td>
+			<td><%=personList.get(i).getPersonId()%></td>
+		</tr>
+		<tr>
+			<td>
+				<a href=""<%=personList.get(i).getPersonId()%>>[수정]</a>
+			</td>
+			<td>
+				<a href="./delete.jsp?id=<%=personList.get(i).getPersonId()%>"
+				 name="id">[삭제]</a>
+			</td>
+		</tr>
 		<br>
 	</table>	
 	<%
 		}
 	%>
 	<br>	
-	<a href="http://localhost:8088/phonebook1/writeform.jsp">추가번호등록</a>			
+	<a href="./writeform.jsp" target="_blank">추가번호등록</a>				
 </body>
 </html>
