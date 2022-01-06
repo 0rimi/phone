@@ -102,26 +102,32 @@ public class PhoneDao {
 		try {
 
 			// 3. SQL문 준비 / 바인딩 / 실행 --> 완성된 sql문을 가져와서 작성할것
+			
+			//문자열 만들기
 			String query = "";
 			query += " select  person_id, ";
 			query += "         name, ";
 			query += "         hp, ";
 			query += "         company ";
 			query += " from person";
-
+			
+			//바인딩
 			if (keword != "" || keword == null) {
 				query += " where name like ? ";
 				query += " or hp like  ? ";
 				query += " or company like ? ";
-				pstmt = conn.prepareStatement(query); // 쿼리로 만들기
+				// 쿼리로 만들기
+				pstmt = conn.prepareStatement(query); 
 
 				pstmt.setString(1, '%' + keword + '%'); // ?(물음표) 중 1번째, 순서중요
 				pstmt.setString(2, '%' + keword + '%'); // ?(물음표) 중 2번째, 순서중요
 				pstmt.setString(3, '%' + keword + '%'); // ?(물음표) 중 3번째, 순서중요
 			} else {
-				pstmt = conn.prepareStatement(query); // 쿼리로 만들기
+				// 쿼리로 만들기
+				pstmt = conn.prepareStatement(query);
 			}
-
+			
+			//실행
 			rs = pstmt.executeQuery();
 
 			// 4.결과처리
@@ -144,6 +150,57 @@ public class PhoneDao {
 		return personList;
 
 	}
+	
+	
+	// 특정 사람 불러오기
+	public PersonVo getPerson(int index){
+		
+		PersonVo personVo = new PersonVo();
+		getConnection();
+
+		try {
+			
+			// 3. SQL문 준비 / 바인딩 / 실행 --> 완성된 sql문을 가져와서 작성할것
+			String query = "";
+			query += " select  person_id, ";
+			query += "         name, ";
+			query += "         hp, ";
+			query += "         company ";
+			query += " from person ";
+			query += " where person_id like ? ";
+
+			//쿼리문 만들기
+			pstmt = conn.prepareStatement(query);
+			
+			//바인딩
+			pstmt.setInt(1, index );
+			
+			rs = pstmt.executeQuery();
+
+			// 4.결과처리
+			while (rs.next()) {
+				int personId = rs.getInt("person_id");
+				String name = rs.getString("name");
+				String hp = rs.getString("hp");
+				String company = rs.getString("company");
+				
+				personVo.setPersonId(personId);
+				personVo.setName(name);
+				personVo.setHp(hp);
+				personVo.setCompany(company);				
+			}
+			
+
+		} catch (SQLException e) {
+			System.out.println("error:" + e);
+		}
+
+		close();
+
+		return personVo;
+
+	}
+
 
 
 	// 사람 수정
@@ -207,6 +264,5 @@ public class PhoneDao {
 		close();
 		return count;
 	}
-
 
 }

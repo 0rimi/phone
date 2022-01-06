@@ -1,10 +1,16 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>  
+<%@ page import="com.javaex.vo.PersonVo" %>
+<%@ page import="com.javaex.dao.PhoneDao" %>
     
 <%	
 	//해당 인물의 코드만 받기위한 파라미터
 	String str = request.getParameter ("id");
 	int id = Integer.parseInt(str);
+	
+	//phoneDao의 getPerson사용해보기
+	PhoneDao phoneDao = new PhoneDao();
+	
 	
 %>  
  
@@ -24,9 +30,9 @@
 	</p>
 	
 	<form action="./update.jsp?" method="get">
-   		이름(name) : <input type="text" name="name" value=""><br>
-   		핸드폰(hp) : <input type="text" name="hp" value=""><br>
-   		회사(company) : <input type="text" name="company" value=""><br>
+   		이름(name) : <input type="text" name="name" value="<%=phoneDao.getPerson(id).getName()%>"><br>
+   		핸드폰(hp) : <input type="text" name="hp" value="<%=phoneDao.getPerson(id).getHp()%>"><br>
+   		회사(company) : <input type="text" name="company" value="<%=phoneDao.getPerson(id).getCompany()%>"><br>
    		코드(id) : <input type=text name="id" value="<%=id %>">  <br>
    <button type="submit">수정</button>
    </form>
